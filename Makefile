@@ -1,5 +1,5 @@
 CXX = g++
-CXXFLAGS = -std=c++11 -Wall -Wextra -O3 -I.
+CXXFLAGS = -std=c++23 -Wall -Wextra -O3 -I.
 TARGET = kfetch
 SRCS = kfetch.cpp config/config.cpp gpu/gpu.cpp
 OBJS = $(SRCS:.cpp=.o)
