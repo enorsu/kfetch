@@ -1,4 +1,3 @@
-                                                                                            @ BSD-3-Clause License
 `kfetch` is a lightweight, cross-platform system information fetcher for BSD and Linux.
 
 ## Features
