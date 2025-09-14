@@ -5,10 +5,6 @@
 #include <algorithm>
 #include <vector>
 
-#include <sys/types.h>
-#include <sys/sysctl.h>
-#include <cstring> // for memcpy, memset, etc.
-
 namespace kfetch {
 
 // --- String helpers ---------------------------------------------------------
@@ -27,7 +23,12 @@ inline std::string toLower(const std::string& str) {
 }
 
 // --- Portable sysctlbyname --------------------------------------------------
+// OpenBSD: emulate sysctlbyname using sysctlnametomib + sysctl
 #if defined(__OpenBSD__)
+#include <sys/types.h>
+#include <sys/sysctl.h>
+#include <cstring>
+
 inline int portable_sysctlbyname(const char* name,
                                  void* oldp, size_t* oldlenp,
                                  const void* newp, size_t newlen)
@@ -42,12 +43,25 @@ inline int portable_sysctlbyname(const char* name,
                   const_cast<void*>(newp), newlen);
 }
 
-#else
+// Linux/macOS: use native sysctlbyname if available
+#elif defined(__linux__) || defined(__APPLE__)
+#include <sys/types.h>
+#include <sys/sysctl.h>
+
 inline int portable_sysctlbyname(const char* name,
                                  void* oldp, size_t* oldlenp,
                                  const void* newp, size_t newlen)
 {
     return sysctlbyname(name, oldp, oldlenp, newp, newlen);
+}
+
+// Other platforms: stub returning -1 (not supported)
+#else
+inline int portable_sysctlbyname(const char*,
+                                 void*, size_t*,
+                                 const void*, size_t)
+{
+    return -1;
 }
 #endif
 
