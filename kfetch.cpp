@@ -204,7 +204,7 @@ private:
 #elif defined(BSD_SYSTEM)
         struct timeval boottime;
         size_t size = sizeof(boottime);
-        if (sysctlbyname("kern.boottime", &boottime, &size, NULL, 0) == 0) {
+        if (kfetch::portable_sysctlbyname("kern.boottime", &boottime, &size, NULL, 0) == 0) {
             time_t now;
             time(&now);
             long seconds = static_cast<long>(difftime(now, boottime.tv_sec));
@@ -342,7 +342,7 @@ private:
 #elif defined(BSD_SYSTEM)
         char cpu_model[256];
         size_t size = sizeof(cpu_model);
-        if (sysctlbyname("hw.model", cpu_model, &size, NULL, 0) == 0) {
+        if (kfetch::portable_sysctlbyname("hw.model", cpu_model, &size, NULL, 0) == 0) {
             cpu = std::string(cpu_model);
             // Simplify CPU name
             size_t at = cpu.find("@");
@@ -373,7 +373,7 @@ private:
     uint64_t total_mem;
     size_t size = sizeof(total_mem);
 
-    if (sysctlbyname("hw.physmem", &total_mem, &size, NULL, 0) != 0) {
+    if (kfetch::portable_sysctlbyname("hw.physmem", &total_mem, &size, NULL, 0) != 0) {
         memory = "Unknown";
         return;
     }
@@ -382,16 +382,16 @@ private:
     uint64_t free_pages = 0, inactive_pages = 0, cache_pages = 0, pagesize = 4096;
 
     size = sizeof(pagesize);
-    sysctlbyname("hw.pagesize", &pagesize, &size, NULL, 0);
+    kfetch::portable_sysctlbyname("hw.pagesize", &pagesize, &size, NULL, 0);
 
     size = sizeof(free_pages);
-    sysctlbyname("vm.stats.vm.v_free_count", &free_pages, &size, NULL, 0);
+    kfetch::portable_sysctlbyname("vm.stats.vm.v_free_count", &free_pages, &size, NULL, 0);
 
     size = sizeof(inactive_pages);
-    sysctlbyname("vm.stats.vm.v_inactive_count", &inactive_pages, &size, NULL, 0);
+    kfetch::portable_sysctlbyname("vm.stats.vm.v_inactive_count", &inactive_pages, &size, NULL, 0);
 
     size = sizeof(cache_pages);
-    sysctlbyname("vm.stats.vm.v_cache_count", &cache_pages, &size, NULL, 0);
+    kfetch::portable_sysctlbyname("vm.stats.vm.v_cache_count", &cache_pages, &size, NULL, 0);
 
     uint64_t total_mb = total_mem / (1024ULL * 1024ULL);
     uint64_t available_mb = (free_pages + inactive_pages + cache_pages) * pagesize / (1024ULL * 1024ULL);
