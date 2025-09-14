@@ -23,10 +23,12 @@ Build it:
 make
 ```
 
-Optional: Install kfetch onto your system
+Optional: Install kfetch and create a default config file:
 
 ```sh
 make install
+# This copies the kfetch binary to /usr/local/bin
+# and creates ~/.config/kfetch.conf if it doesn't exist
 ```
 
 ## Usage
@@ -58,7 +60,7 @@ make install
 
 ## Configuration
 
-Edit the config file at `/.config/kfetch.conf` after `make install` to customize your output. Example:
+Edit the config file at `~/.config/kfetch.conf` after `make install` to customize your output.
 
 ```ini
 show_art = true
@@ -69,6 +71,13 @@ custom_text_color = bright_green
 ```
 
 Use the `--output` flag to see verbose config parsing messages.
+
+## Dependencies
+
+- g++ (C++23 support)
+- Make
+- Standard BSD/Linux utilities
+
 
 ## Screenshots
 
