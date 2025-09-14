@@ -44,7 +44,7 @@ GPUInfo::GPUInfo() {
     }
 
 #elif defined(__FreeBSD__) || defined(__DragonFly__)
-    // ✅ NVIDIA query FIRST for FreeBSD
+    // NVIDIA query FIRST for FreeBSD
     if (system("command -v nvidia-smi >/dev/null 2>&1") == 0) {
         std::string out = runCommand(
             "nvidia-smi --query-gpu=name --format=csv,noheader 2>/dev/null");
