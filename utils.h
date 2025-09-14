@@ -23,6 +23,7 @@ inline std::string toLower(const std::string& str) {
 }
 
 // --- Portable sysctlbyname --------------------------------------------------
+
 // OpenBSD: emulate sysctlbyname using sysctlnametomib + sysctl
 #if defined(__OpenBSD__)
 #include <sys/types.h>
@@ -36,14 +37,14 @@ inline int portable_sysctlbyname(const char* name,
     int mib[CTL_MAXNAME];
     size_t miblen = CTL_MAXNAME;
 
-    if (sysctlnametomib(name, mib, &miblen) == -1)
+    if (::sysctlnametomib(name, mib, &miblen) == -1) // global namespace
         return -1;
 
-    return sysctl(mib, static_cast<u_int>(miblen), oldp, oldlenp,
-                  const_cast<void*>(newp), newlen);
+    return ::sysctl(mib, static_cast<u_int>(miblen), oldp, oldlenp,
+                    const_cast<void*>(newp), newlen);
 }
 
-// macOS: sysctlbyname exists
+// macOS: use native sysctlbyname
 #elif defined(__APPLE__)
 #include <sys/types.h>
 #include <sys/sysctl.h>
@@ -52,19 +53,10 @@ inline int portable_sysctlbyname(const char* name,
                                  void* oldp, size_t* oldlenp,
                                  const void* newp, size_t newlen)
 {
-    return sysctlbyname(name, oldp, oldlenp, newp, newlen);
+    return ::sysctlbyname(name, oldp, oldlenp, const_cast<void*>(newp), newlen);
 }
 
-// Linux: stub (Linux doesn’t have sysctlbyname in standard headers)
-#elif defined(__linux__)
-inline int portable_sysctlbyname(const char*,
-                                 void*, size_t*,
-                                 const void*, size_t)
-{
-    return -1; // not supported
-}
-
-// Other platforms: stub
+// Linux or unsupported platforms: stub returning -1
 #else
 inline int portable_sysctlbyname(const char*,
                                  void*, size_t*,
