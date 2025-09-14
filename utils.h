@@ -43,8 +43,8 @@ inline int portable_sysctlbyname(const char* name,
                   const_cast<void*>(newp), newlen);
 }
 
-// Linux/macOS: use native sysctlbyname if available
-#elif defined(__linux__) || defined(__APPLE__)
+// macOS: sysctlbyname exists
+#elif defined(__APPLE__)
 #include <sys/types.h>
 #include <sys/sysctl.h>
 
@@ -55,7 +55,16 @@ inline int portable_sysctlbyname(const char* name,
     return sysctlbyname(name, oldp, oldlenp, newp, newlen);
 }
 
-// Other platforms: stub returning -1 (not supported)
+// Linux: stub (Linux doesn’t have sysctlbyname in standard headers)
+#elif defined(__linux__)
+inline int portable_sysctlbyname(const char*,
+                                 void*, size_t*,
+                                 const void*, size_t)
+{
+    return -1; // not supported
+}
+
+// Other platforms: stub
 #else
 inline int portable_sysctlbyname(const char*,
                                  void*, size_t*,
