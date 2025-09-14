@@ -216,38 +216,6 @@ inline int portable_sysctlbyname(const char* name,
         int mib[] = {CTL_HW, HW_MACHINE};
         return sysctl(mib, 2, oldp, oldlenp, const_cast<void*>(newp), newlen);
     }
-    if (strcmp(name, "hw.machine_arch") == 0) {
-        int mib[] = {CTL_HW, HW_MACHINE_ARCH};
-        return sysctl(mib, 2, oldp, oldlenp, const_cast<void*>(newp), newlen);
-    }
-    if (strcmp(name, "hw.vendor") == 0) {
-        int mib[] = {CTL_HW, HW_VENDOR};
-        return sysctl(mib, 2, oldp, oldlenp, const_cast<void*>(newp), newlen);
-    }
-    if (strcmp(name, "hw.product") == 0) {
-        int mib[] = {CTL_HW, HW_PRODUCT};
-        return sysctl(mib, 2, oldp, oldlenp, const_cast<void*>(newp), newlen);
-    }
-    if (strcmp(name, "hw.version") == 0) {
-        int mib[] = {CTL_HW, HW_VERSION};
-        return sysctl(mib, 2, oldp, oldlenp, const_cast<void*>(newp), newlen);
-    }
-    if (strcmp(name, "hw.serialno") == 0) {
-        int mib[] = {CTL_HW, HW_SERIALNO};
-        return sysctl(mib, 2, oldp, oldlenp, const_cast<void*>(newp), newlen);
-    }
-    if (strcmp(name, "hw.uuid") == 0) {
-        int mib[] = {CTL_HW, HW_UUID};
-        return sysctl(mib, 2, oldp, oldlenp, const_cast<void*>(newp), newlen);
-    }
-    if (strcmp(name, "hw.diskcount") == 0) {
-        int mib[] = {CTL_HW, HW_DISKCOUNT};
-        return sysctl(mib, 2, oldp, oldlenp, const_cast<void*>(newp), newlen);
-    }
-    if (strcmp(name, "hw.sensors") == 0) {
-        int mib[] = {CTL_HW, HW_SENSORS};
-        return sysctl(mib, 2, oldp, oldlenp, const_cast<void*>(newp), newlen);
-    }
     
     // VM subsystem
     if (strcmp(name, "vm.loadavg") == 0) {
