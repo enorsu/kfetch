@@ -1,0 +1,101 @@
+.TH KFETCH 1 "September 2025" "kfetch 1.0" "User Commands"
+.SH NAME
+kfetch \- a simple system information fetcher with configurable output
+
+.SH SYNOPSIS
+.B kfetch
+[\fIOPTIONS\fR]
+
+.SH DESCRIPTION
+.B kfetch
+displays system information in a simple ASCII-art format. It shows details about your
+user, hostname, OS, kernel, uptime, installed packages, shell, desktop environment,
+terminal, CPU, memory, and GPU. Colors and ASCII art can be customized.
+
+Configuration is loaded from a config file (default: \fI~/.config/kfetch.conf\fR).
+
+.SH OPTIONS
+.TP
+\fB--output\fR
+Enable verbose config output (prints lines from the config file as they are parsed).
+
+.TP
+\fB--no-art\fR
+Hide ASCII art.
+
+.TP
+\fB--no-colors\fR
+Disable colored output.
+
+.TP
+\fB--no-username\fR
+Hide username.
+
+.TP
+\fB--no-hostname\fR
+Hide hostname.
+
+.TP
+\fB--no-os\fR
+Hide OS information.
+
+.TP
+\fB--no-kernel\fR
+Hide kernel information.
+
+.TP
+\fB--no-uptime\fR
+Hide uptime information.
+
+.TP
+\fB--no-packages\fR
+Hide package count.
+
+.TP
+\fB--no-shell\fR
+Hide shell information.
+
+.TP
+\fB--no-de\fR
+Hide desktop environment information.
+
+.TP
+\fB--no-terminal\fR
+Hide terminal information.
+
+.TP
+\fB--no-cpu\fR
+Hide CPU information.
+
+.TP
+\fB--no-memory\fR
+Hide memory information.
+
+.TP
+\fB--help, -h\fR
+Display this help message.
+
+.SH CONFIGURATION
+By default, \fIkfetch\fR looks for a config file at \fI~/.config/kfetch.conf\fR. 
+The following keys can be set in the config file:
+
+.B show_art, show_colors, show_username, show_hostname, show_os, show_kernel, show_uptime, show_packages, show_shell, show_de, show_terminal, show_cpu, show_memory
+.TP
+Enable (true/1/yes) or disable (false/0/no) the corresponding section.
+
+.B custom_art_color, custom_text_color
+.TP
+Set colors using ANSI color names (e.g., red, blue, bright_white, etc.).
+
+.SH EXAMPLES
+.TP
+\fBkfetch\fR
+Display system information with default settings.
+
+.TP
+\fBkfetch --output --no-colors\fR
+Display system information, show config parsing output, disable colors.
+
+.SH AUTHOR
+Damien
+

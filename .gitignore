@@ -1,0 +1,19 @@
+# Compiled object files
+*.o
+*.obj
+
+# Executable
+kfetch
+
+# Backup files
+*~
+*.swp
+
+# Logs
+*.log
+
+# IDE/editor specific
+.vscode/
+.idea/
+*.DS_Store
+
