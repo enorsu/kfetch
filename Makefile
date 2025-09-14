@@ -17,7 +17,9 @@ clean:
 
 install: $(TARGET)
 	cp $(TARGET) /usr/local/bin/
-	mkdir -p ~/.config/
-	cp kfetch.conf.example ~/.config/kfetch.conf
+	mkdir -p ~/.config
+	if [ ! -f ~/.config/kfetch.conf ]; then \
+	    cp kfetch.conf.example ~/.config/kfetch.conf; \
+	fi
 
 .PHONY: all clean install

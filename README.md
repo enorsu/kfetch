@@ -23,10 +23,10 @@ Build it:
 make
 ```
 
-Optional: move binary to a folder in your PATH:
+Optional: Install kfetch onto your system
 
 ```sh
-sudo cp kfetch /usr/local/bin/
+make install
 ```
 
 ## Usage
@@ -58,7 +58,7 @@ sudo cp kfetch /usr/local/bin/
 
 ## Configuration
 
-Create a config file at `/.config/kfetch.conf` to customize your output. Example:
+Edit the config file at `/.config/kfetch.conf` after `make install` to customize your output. Example:
 
 ```ini
 show_art = true
