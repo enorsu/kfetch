@@ -532,15 +532,16 @@ public:
     // Info lines as pairs: {label, value}
     std::vector<std::pair<std::string, std::string>> info_pairs;
 
+    // Title line (username@hostname)
     if (config.show_username && config.show_hostname) {
-        info_pairs.emplace_back("", username + "@" + hostname);
-        info_pairs.emplace_back("", std::string(username.length() + hostname.length() + 1, '-'));
-    } else if (config.show_username) {
-        info_pairs.emplace_back("", username);
-        info_pairs.emplace_back("", std::string(username.length(), '-'));
-    } else if (config.show_hostname) {
-        info_pairs.emplace_back("", hostname);
-        info_pairs.emplace_back("", std::string(hostname.length(), '-'));
+    	info_pairs.emplace_back("", art.color_code + username + "@" + hostname + RESET_COLOR);
+    	info_pairs.emplace_back("", art.color_code + std::string(username.length() + hostname.length() + 1, '-') + RESET_COLOR);
+		} else if (config.show_username) {
+    	info_pairs.emplace_back("", art.color_code + username + RESET_COLOR);
+    	info_pairs.emplace_back("", art.color_code + std::string(username.length(), '-') + RESET_COLOR);
+		} else if (config.show_hostname) {
+    	info_pairs.emplace_back("", art.color_code + hostname + RESET_COLOR);
+    	info_pairs.emplace_back("", art.color_code + std::string(hostname.length(), '-') + RESET_COLOR);
     }
 
     if (config.show_os) info_pairs.emplace_back("OS: ", distro_pretty_name);
