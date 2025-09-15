@@ -16,7 +16,7 @@ $(TARGET): $(OBJS)
 clean:
 	rm -f $(OBJS) $(TARGET)
 
-install: $(TARGET)
+install: $(TARGET) $(DESTDIR)
 	cp $(TARGET) $(DESTDIR)
 	mkdir -p ~/.config
 	if [ ! -f ~/.config/kfetch.conf ]; then \
