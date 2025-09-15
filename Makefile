@@ -3,6 +3,7 @@ CXXFLAGS = -std=c++23 -Wall -Wextra -O3 -I.
 TARGET = kfetch
 SRCS = kfetch.cpp config/config.cpp gpu/gpu.cpp
 OBJS = $(SRCS:.cpp=.o)
+DESTDIR = /usr/local/bin/
 
 all: $(TARGET)
 
@@ -16,7 +17,7 @@ clean:
 	rm -f $(OBJS) $(TARGET)
 
 install: $(TARGET)
-	cp $(TARGET) /usr/local/bin/
+	cp $(TARGET) $(DESTDIR)
 	mkdir -p ~/.config
 	if [ ! -f ~/.config/kfetch.conf ]; then \
 	   cp kfetch.conf.example ~/.config/kfetch.conf; \
